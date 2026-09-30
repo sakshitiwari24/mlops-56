@@ -25,7 +25,7 @@ class HouseFeatures(BaseModel):
     bathrooms: int = Field(...,gt=0,le=200)
     age_years: int = Field(...,gt=0 , le=10)
     location_score: int = Field(...,ge=1 , le=10)
-    
+
 @app.get("/health")
 def health():
     return {"status": "healthy", "model": MODEL_URI}
@@ -37,6 +37,7 @@ def predict(features:HouseFeatures):
     return {"predicted_price":round(float(prediction),2)}
 
     app.mount("/static",StaticFiles(directory=BASE_DIR/"static"))
+    
     @app.get("/")
     def frontend():
         return FileResponse(BASE_DIR/"static"/"index.html") 
